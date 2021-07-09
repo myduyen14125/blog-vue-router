@@ -11,8 +11,13 @@
             <p>{{ blogs[0].content }}</p>
         </div>
       </div>
-      <template v-for="blog in blogs">
-        <div class="blog-container" :key="'blog-'+blog.id" @click="$router.push(/blog/+blog.id)" v-if="blog.id > 0">
+      <template 
+        v-for="blog in visibleBlogs"
+        v-bind:visibleBlogs="visibleBlogs"
+        v-bind:currentPage="currentPage"
+        v-bind:blog="blog"
+      >
+        <div class="blog-container" :key="'blog-'+blog.id" @click="$router.push(/blog/+blog.id)">
           <img class="photo" :src="blog.thumbnail" alt="#">
           <div class="content">
             <span class="description" style="display: block; color: gray; text-transform: uppercase">{{ blog.description }}</span>
@@ -22,6 +27,14 @@
           </div>
         </div>
       </template>
+
+      <Pagination 
+        v-bind:blogs="blogs"
+        v-on:updatePage="updatePage"
+        v-bind:currentPage="currentPage"
+        v-bind:pageSize="pageSize"
+      > 
+      </Pagination>
     </div>
     <div v-else>
       <p>Not Found</p>
@@ -33,32 +46,51 @@
 
 <script>
 import axios from 'axios'
+import Pagination from '../components/uncommon/Blogs/Pagination.vue'
 export default ({
   name: 'Blogs',
   components: {
-  },
-  data() {
-    return {
-      blogs: []
-    }
-  },
-  computed : {
-    previewContent: function(){
-      return this.blogs.content.slice(0,100) + '...';
-    }
+    Pagination
   },
   async created() {
     try {
       const response = await axios.get(`http://localhost:3000/blogs`)
       console.log(response)
       this.blogs = response.data
+      this.updateVisibleBlogs();
     }
     catch(error){
       console.log(error)
     }
     
+  },
+  data() {
+    return {
+      blogs: [],
+      currentPage: 0,
+      pageSize: 3,
+      visibleBlogs: [],
+    }
+  },
+  // beforeMount: function() {
+  //   this.updateVisibleBlogs();
+  // },
+  methods: {
+    updatePage(pageNumber) {
+      this.currentPage = pageNumber;
+      this.updateVisibleBlogs();
+    },
+    updateVisibleBlogs() {
+      console.log('blogs ne hehhe' + this.blogs)
+      this.visibleBlogs = this.blogs.slice(this.currentPage * this.pageSize, (this.currentPage * this.pageSize) + this.pageSize);
+
+      // if we have 0 visible Blogs, go back a page
+      if (this.visibleBlogs.length == 0 && this.currentPage > 0) {
+        this.updatePage(this.currentPage -1);
+      }
+    }
   }
-    
+      
 })
 </script>
 
