@@ -31,6 +31,11 @@ export default {
 </script>
 
 <style scoped>
+.pagination{
+  padding: 10px;
+  width: 250px;
+  margin: auto;
+}
 .pagination-btn {
   display: inline-block;
   cursor: pointer;
