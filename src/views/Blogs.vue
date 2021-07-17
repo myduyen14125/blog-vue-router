@@ -11,6 +11,7 @@
             <p>{{ blogs[0].content }}</p>
         </div>
       </div>
+      <transition-group name="slide-fade" mode="out-in" :duration="{ enter: 800, leave: -500 }">
       <template 
         v-for="blog in visibleBlogs"
         v-bind:visibleBlogs="visibleBlogs"
@@ -26,8 +27,9 @@
             <p>{{ blog.content }}</p>
           </div>
         </div>
+        
       </template>
-
+      </transition-group>
       <Pagination 
         v-bind:blogs="blogs"
         v-on:updatePage="updatePage"
@@ -81,7 +83,7 @@ export default ({
       this.updateVisibleBlogs();
     },
     updateVisibleBlogs() {
-      console.log('blogs ne hehhe' + this.blogs)
+      // console.log('blogs ne hehhe' + this.blogs)
       this.visibleBlogs = this.blogs.slice(this.currentPage * this.pageSize, (this.currentPage * this.pageSize) + this.pageSize);
 
       // if we have 0 visible Blogs, go back a page
