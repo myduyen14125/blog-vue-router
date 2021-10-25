@@ -44,9 +44,9 @@ export default ({
 </script>
 
 
-<style>
+<style lang="scss">
 *{
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Be Vietnam', sans-serif;
 }
 body{
   margin: 0;
@@ -54,7 +54,8 @@ body{
   box-sizing: border-box;
 }
 a{
-  text-decoration: none;
+  text-decoration: none !important;
+
 }
 a.router-link-exact-active {
   border-bottom: 5px solid #2c3e50;

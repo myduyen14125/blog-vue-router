@@ -18,13 +18,8 @@ const routes = [
     layout: 'defaultLayout'
   },
   {
-    path: '/blogs',
-    name: 'Blogs',
-    component: () => import('../views/Blogs.vue')
-  },
-  {
-    path: '/blog/:id',
-    component: () => import('../views/BlogDetail.vue'),
+    path: '/product/:id',
+    component: () => import('../views/ProductDetail.vue'),
     // children: [
     //   {
     //     path: 'detail',
@@ -43,16 +38,15 @@ const routes = [
     meta: { layout: 'unauth'}
   },
   {
-    //Match everything -> run when can't find these path above
     path: '*',
     component: () => import('../views/NotFound.vue'),
     meta: { layout: 'unauth'}
   },
-  {
-    path: '/dashboard',
-    component: () => import('../views/Dashboard.vue'),
-    meta: { layout: 'secret'}
-  },
+  // {
+  //   path: '/dashboard',
+  //   component: () => import('../views/Dashboard.vue'),
+  //   meta: { layout: 'secret'}
+  // },
 ]
 
 const router = new VueRouter({
