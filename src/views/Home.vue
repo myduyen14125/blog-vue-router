@@ -9,7 +9,7 @@
             <b-col>
               <ProductCard/>
             </b-col>
-            <b-col>2 of 3</b-col>
+            <b-col>2 of 3 hehe</b-col>
             <b-col>3 of 3</b-col>
             <b-col>3 of 3</b-col>
           </b-row>
